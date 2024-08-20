@@ -12,7 +12,7 @@ interface CreateOrgRequestProps {
 }
 
 export class CreateOrgUseCase {
-  constructor(private inMemoryRepostory: OrgRepositoryInterface) {}
+  constructor(private orgRepository: OrgRepositoryInterface) {}
 
   async execute({
     address,
@@ -24,7 +24,7 @@ export class CreateOrgUseCase {
   }: CreateOrgRequestProps) {
     const password_hash = (await hash(password, 6)).toString();
 
-    const org = this.inMemoryRepostory.create({
+    const org = this.orgRepository.create({
       address,
       city,
       name,
