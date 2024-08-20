@@ -2,6 +2,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import { CreateOrgUseCase } from "../../../use-cases/org/create";
 import { InMemoryOrgRepository } from "../../../repositories/in-memory/in-memory-org-repository";
+import { PrismaOrgRepository } from "../../../repositories/prisma/prisma-org-repository";
 
 export async function createController(
   request: FastifyRequest,
@@ -20,10 +21,10 @@ export async function createController(
     createOrgBodySchema.parse(request.body);
 
   try {
-    const inMemoryOrgRepository = new InMemoryOrgRepository();
-    const createOrgUseCase = new CreateOrgUseCase(inMemoryOrgRepository);
+    const orgRepository = new PrismaOrgRepository();
+    const createOrgUseCase = new CreateOrgUseCase(orgRepository);
 
-    await createOrgUseCase.execute({
+    const { org } = await createOrgUseCase.execute({
       address,
       city,
       email,
@@ -32,7 +33,7 @@ export async function createController(
       phone,
     });
 
-    return reply.status(201).send();
+    return reply.status(201).send({ org });
   } catch (error) {
     return reply.status(409).send();
   }

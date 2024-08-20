@@ -24,7 +24,7 @@ export class CreateOrgUseCase {
   }: CreateOrgRequestProps) {
     const password_hash = (await hash(password, 6)).toString();
 
-    const org = this.orgRepository.create({
+    const org = await this.orgRepository.create({
       address,
       city,
       name,
