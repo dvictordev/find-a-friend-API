@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import { CreateOrgUseCase } from "../../../use-cases/org/create";
-import { InMemoryOrgRepository } from "../../../repositories/in-memory/in-memory-org-repository";
 import { PrismaOrgRepository } from "../../../repositories/prisma/prisma-org-repository";
+import { OrgAlreadyExistsError } from "../../../use-cases/errors/org-already-exists-error";
 
 export async function createController(
   request: FastifyRequest,
@@ -35,6 +35,10 @@ export async function createController(
 
     return reply.status(201).send({ org });
   } catch (error) {
-    return reply.status(409).send(error);
+    if (error instanceof OrgAlreadyExistsError) {
+      return reply.status(409).send(error);
+    }
+
+    return reply.status(500).send();
   }
 }
