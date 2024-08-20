@@ -31,10 +31,12 @@ model Pet {
 }
 
 model Org {
-  id      String @id @default(uuid())
-  name    String
-  phone   String
-  address String
-  city    String
-  Pet     Pet[]
+  id            String @id @default(uuid())
+  name          String
+  email         String
+  password_hash String
+  phone         String
+  address       String
+  city          String
+  Pet           Pet[]
 }
