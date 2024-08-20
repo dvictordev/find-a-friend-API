@@ -35,6 +35,6 @@ export async function createController(
 
     return reply.status(201).send({ org });
   } catch (error) {
-    return reply.status(409).send();
+    return reply.status(409).send(error);
   }
 }
