@@ -3,6 +3,15 @@ import { randomUUID } from "crypto";
 import { OrgRepositoryInterface } from "../interfaces/org-interface-repository";
 
 export class InMemoryOrgRepository implements OrgRepositoryInterface {
+  async findById(id: string): Promise<Org | null> {
+    const org = this.org.find((org) => org.id == id);
+
+    if (!org) {
+      return null;
+    }
+
+    return org;
+  }
   public org: Org[] = [];
 
   async findUnique(email: String): Promise<Org | null> {
