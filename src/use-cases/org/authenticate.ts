@@ -25,7 +25,6 @@ export class AuthenticateUseCase {
 
     return {
       ...org,
-      password: undefined,
     };
   }
 }

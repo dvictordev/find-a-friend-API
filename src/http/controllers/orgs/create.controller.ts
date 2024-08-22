@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
-import { CreateOrgUseCase } from "../../../use-cases/org/create";
 import { PrismaOrgRepository } from "../../../repositories/prisma/prisma-org-repository";
 import { OrgAlreadyExistsError } from "../../../use-cases/errors/org-already-exists-error";
+import { CreateOrgUseCase } from "../../../use-cases/org/create";
 
 export async function createController(
   request: FastifyRequest,
@@ -24,7 +24,7 @@ export async function createController(
     const orgRepository = new PrismaOrgRepository();
     const createOrgUseCase = new CreateOrgUseCase(orgRepository);
 
-    const { org } = await createOrgUseCase.execute({
+    await createOrgUseCase.execute({
       address,
       city,
       email,
@@ -32,13 +32,13 @@ export async function createController(
       password,
       phone,
     });
-
-    return reply.status(201).send({ org });
   } catch (error) {
     if (error instanceof OrgAlreadyExistsError) {
-      return reply.status(409).send(error);
+      return reply.status(409).send({ message: error.message });
     }
 
     return reply.status(500).send();
   }
+
+  return reply.status(201).send();
 }
