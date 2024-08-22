@@ -2,8 +2,8 @@ import { describe, expect, it, beforeEach } from "vitest";
 import { CreatePetUseCase } from "./create";
 import { InMemoryPetRepository } from "../../repositories/in-memory/in-memory-pet-repository";
 import { InMemoryOrgRepository } from "../../repositories/in-memory/in-memory-org-repository";
-import { CreateOrgUseCase } from "../org/create";
 import { OrgInvalidError } from "../errors/org-invalid-error";
+import { CreateOrgUseCase } from "../org/create";
 
 let petRepository: InMemoryPetRepository;
 let createPetUseCase: CreatePetUseCase;
@@ -11,8 +11,8 @@ let orgRepository: InMemoryOrgRepository;
 let createOrgUseCase: CreateOrgUseCase;
 describe("Create Pet", () => {
   beforeEach(() => {
-    petRepository = new InMemoryPetRepository();
     orgRepository = new InMemoryOrgRepository();
+    petRepository = new InMemoryPetRepository(orgRepository);
     createPetUseCase = new CreatePetUseCase(petRepository, orgRepository);
     createOrgUseCase = new CreateOrgUseCase(orgRepository);
   });
