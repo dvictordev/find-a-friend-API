@@ -13,4 +13,5 @@ export interface SearchPetFilterProps {
 export interface PetRepositoryInterface {
   create(data: Prisma.PetUncheckedCreateInput): Promise<Pet>;
   search(data: SearchPetFilterProps): Promise<Pet[]>;
+  serchById(id: string): Promise<Pet | null>;
 }

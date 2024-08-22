@@ -58,4 +58,14 @@ export class InMemoryPetRepository implements PetRepositoryInterface {
 
     return pets;
   }
+
+  async serchById(id: string): Promise<Pet | null> {
+    const pet = this.pets.find((pet) => pet.id == id);
+
+    if (!pet) {
+      return null;
+    }
+
+    return pet;
+  }
 }
