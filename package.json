@@ -5,7 +5,9 @@
   "scripts": {
     "test": "vitest run --dir src/use-cases",
     "test:watch": "vitest --dir src/use-cases",
-    "dev": " tsx watch src/server.ts"
+    "dev": " tsx watch src/server.ts",
+    "test:e2e": "vitest run --dir src/http",
+    "build": "tsup src --out-dir build"
   },
   "keywords": [],
   "author": "",
@@ -19,15 +21,18 @@
     "dotenv": "16.4.5",
     "fastify": "^4.28.1",
     "find-a-friend-api": "file:",
+    "npm-run-all": "4.1.5",
     "zod": "3.23.8"
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.6",
     "@types/node": "22.4.1",
     "prisma": "5.18.0",
+    "supertest": "7.0.0",
     "tsup": "8.2.4",
     "tsx": "4.17.0",
     "typescript": "5.5.4",
+    "vite-tsconfig-paths": "5.0.1",
     "vitest": "2.0.5"
   }
 }

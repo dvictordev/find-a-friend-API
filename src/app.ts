@@ -1,9 +1,9 @@
-import fastify from "fastify";
-import { orgRoutes } from "./http/controllers/orgs/routes";
-import fastifyJwt from "@fastify/jwt";
-import { env } from "./env";
 import fastifyCookie from "@fastify/cookie";
+import fastifyJwt from "@fastify/jwt";
+import fastify from "fastify";
 import { ZodError } from "zod";
+import { env } from "./env";
+import { orgRoutes } from "./http/controllers/orgs/routes";
 import { petRoutes } from "./http/controllers/pets/routes";
 export const app = fastify();
 
